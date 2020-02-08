@@ -1,0 +1,140 @@
+﻿@model HRWebApp.Models.JobOffer
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Editing offer for @Model.JobTitle</h2>
+
+@using (Html.BeginForm("Edit", "JobOffer", FormMethod.Post, new { id = "edit-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="form-group">
+        <label for="@Model.Description">Description</label>
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Enter description here", rows = "4", required = "true" })
+        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="@Model.Location">Location</label>
+        @Html.EditorFor(m => m.Location, new { htmlAttributes = new { @class = "form-control", required = "true" } })
+        @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label>Salary</label>
+        <div class="row">
+            <div class="col">
+                <label class="sr-only" for="@Model.SalaryFrom">Salary</label>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">From</span>
+                    </div>
+                    @Html.EditorFor(m => m.SalaryFrom, new { htmlAttributes = new { @class = "form-control", required = "true" } })
+                    @Html.ValidationMessageFor(m => m.SalaryFrom, "", new { @class = "text-danger" })
+                    <div class="input-group-append">
+                        <span class="input-group-text">.00</span>
+                        <span class="input-group-text">$</span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <label class="sr-only" for="@Model.SalaryTo">Salary</label>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">to</span>
+                    </div>
+                    @Html.EditorFor(m => m.SalaryTo, new { htmlAttributes = new { @class = "form-control", required = "true" } })
+                    @Html.ValidationMessageFor(m => m.SalaryTo, "", new { @class = "text-danger" })
+                    <div class="input-group-append">
+                        <span class="input-group-text">.00</span>
+                        <span class="input-group-text">$</span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="errorSalaryFromContainer">
+
+            </div>
+            <div class="col" id="errorSalaryToContainer">
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="@Model.ValidUntil">Valid until</label>
+        @Html.EditorFor(m => m.ValidUntil, new { htmlAttributes = new { @class = "form-control", required = "true"} })
+        @Html.ValidationMessageFor(m => m.ValidUntil, "", new { @class = "text-danger" })
+    </div>
+
+
+
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Go back", "Details", "JobOffer", new { id = @Model.Id }, new { @class = "btn btn-primary" })
+
+}
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+<script>
+
+    jQuery.validator.setDefaults({
+        success: "valid"
+    });
+    $.validator.addMethod('ge', function (value, element, param) {
+        return this.optional(element) || value >= $(param).val();
+    }, 'Invalid value');
+
+    $("#edit-form").validate({
+        rules: {
+            SalaryFrom: {
+                digits: true,
+                min: 1
+            },
+            SalaryTo: {
+                digits: true,
+                ge: "#SalaryFrom"
+            }
+
+        },
+        messages: {
+            Description: {
+                required: "Please enter job description"
+            },
+            Location: {
+                required: "Please specify location"
+            },
+            SalaryFrom: {
+                required: "Please enter lowest salary",
+                digits: "Please enter numerical value",
+                min: "Salary can\'t be lower than 1"
+            },
+            SalaryTo: {
+                required: "Please enter highest salary",
+                ge: "Maximal salary must be greater or equal to minimal salary"
+            },
+            ValidUntil: {
+                required: "Please select valid date"
+            }
+        },
+        errorPlacement: function (error, element) {
+            if (element.attr("id") == "SalaryFrom") {
+                error.appendTo($('#errorSalaryFromContainer'));
+            }
+            else if (element.attr("id") == "SalaryTo") {
+                error.appendTo($('#errorSalaryToContainer'));
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+    });
+
+</script>

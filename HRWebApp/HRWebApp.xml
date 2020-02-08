@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HRWebApp</name>
+    </assembly>
+    <members>
+        <member name="M:HRWebApp.Controllers.JobOffersController.GetJobOffers">
+            <summary>
+            Retrieve all available Job Offers.
+            </summary>
+            <returns>All available Job Offers in JSON format</returns>
+        </member>
+        <member name="M:HRWebApp.Controllers.JobOffersController.GetJobOffer(System.Int32)">
+            <summary>
+            Retrieve a Job Offer by its ID.
+            </summary>
+            <param name="id">The ID of the desired Job Offer</param>
+            <returns>Job Offer data in JSON format</returns>
+        </member>
+        <member name="M:HRWebApp.Controllers.JobOffersController.PutJobOffer(System.Int32,HRWebApp.Models.JobOffer)">
+            <summary>
+            Updates or creates Job Offer
+            </summary>
+            <remarks>
+            Indepotent method, putting the same object multiple times has the same effet as putting one.
+            </remarks>
+            <param name="id">ID of existing or new Job Offer</param>
+            <param name="jobOffer">Job Offer instance to add or update</param>
+            <returns>204 No Content response if updated Job Offer is valid, 400 Bad Request otherwise</returns>
+        </member>
+        <member name="M:HRWebApp.Controllers.JobOffersController.PostJobOffer(HRWebApp.Models.JobOffer)">
+            <summary>
+            Creates new Job Offer
+            </summary>
+            <param name="jobOffer">new Job Offer instance</param>
+            <returns>new Job Offer with 201 Created response if Job Offer is valid, 400 Bad Request otherwise</returns>
+        </member>
+        <member name="M:HRWebApp.Controllers.JobOffersController.DeleteJobOffer(System.Int32)">
+            <summary>
+            Deletes a Job Offer with given ID.
+            </summary>
+            <param name="id">ID of Job Offer to delete</param>
+            <returns>Deleted Job Offer data in JSON format</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,41 @@
+﻿@model HRWebApp.Models.JobApplication
+@{
+    ViewData["Title"] = "Details";
+}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+        <li class="breadcrumb-item"><a asp-area="" asp-controller="JobApplication" asp-action="Index">Job Applications</a></li>
+        <li class="breadcrumb-item"><a asp-area="" asp-controller="JobApplication" asp-action="Details">@Model.LastName</a></li>
+    </ol>
+</nav>
+
+<h2>Details of application:</h2>
+<p>First name: @Model.FirstName</p>
+<p>Last name: @Model.LastName</p>
+<p>Email: @Model.EmailAddress</p>
+<p>Phone number: @Model.PhoneNumber</p>
+<p>Cv Url: @Model.CvUrl</p>
+
+<a asp-area="" asp-controller="JobOffer" asp-action="Details" asp-route-id="@Model.OfferId">
+
+    <button class="btn rounded-pill btn-outline-primary" data-toggle="modal">
+        <i class="fa fa-chevron-left"></i>
+        Go to the offer
+    </button>
+</a>
+
+<a asp-area="" asp-controller="JobApplication" asp-action="Edit" asp-route-id="@Model.Id">
+    <button class="btn rounded-pill btn-outline-primary mt-1 mr-1" style="width: 100px;" data-toggle="modal">
+        <i class="fa fa-pencil-square-o"></i>
+        Edit
+    </button>
+</a>
+
+<a asp-area="" asp-controller="JobApplication" asp-action="Delete" asp-route-id="@Model.Id">
+
+    <button class="btn rounded-pill btn-outline-danger" data-toggle="modal">
+        <i class="fa fa-trash"></i>
+        Delete
+    </button>
+</a>

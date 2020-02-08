@@ -1,0 +1,43 @@
+﻿@model IEnumerable<HRWebApp.Models.JobApplication>
+@{
+    ViewData["Title"] = "Index";
+}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+        <li class="breadcrumb-item"><a asp-area="" asp-controller="JobApplication" asp-action="Index">Job Applications</a></li>
+    </ol>
+</nav>
+
+
+<div class="table-title">
+    <div class="row">
+        <h5 class="font-weight-bold mb-2">
+            List of All applications:
+        </h5>
+    </div>
+</div>
+<table class="table table-hover table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (JobApplication ja in Model)
+        {
+            <tr>
+                <td scope="row" style="transform: rotate(0);"><a class="stretched-link" asp-area="" asp-controller="JobApplication" asp-action="Details" asp-route-id="@ja.Id"></a>@ja.FirstName @ja.LastName</td>
+                <td style="transform: rotate(0);"><a class="stretched-link" asp-area="" asp-controller="JobApplication" asp-action="Details" asp-route-id="@ja.Id"></a>@ja.EmailAddress</td>
+                <td style="transform: rotate(0);">
+                    <a class="stretched-link fa" asp-area="" asp-controller="JobApplication" asp-action="Details" asp-route-id="@ja.Id"></a><i class="fa fa-phone" aria-hidden="true"></i>
+                    @ja.PhoneNumber
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>

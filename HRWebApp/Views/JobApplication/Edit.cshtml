@@ -1,0 +1,78 @@
+﻿@model HRWebApp.Models.JobApplication
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Editing application of @Model.LastName</h2>
+
+@using (Html.BeginForm("Edit", "JobApplication", FormMethod.Post, new { id = "edit-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="form-group">
+        <label for="@Model.EmailAddress">Email</label>
+        @Html.TextAreaFor(m => m.EmailAddress, new { @class = "form-control", required = "true" })
+        @Html.ValidationMessageFor(m => m.EmailAddress, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="@Model.PhoneNumber">PhoneNumber</label>
+        @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { @class = "form-control", required = "true" } })
+        @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+    </div>
+
+
+
+    <div class="form-group">
+        <label for="@Model.ContactAgreement">Contact Agreement</label>
+        @Html.EditorFor(m => m.ContactAgreement, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.ContactAgreement, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="@Model.CvUrl">Cv Url</label>
+        @Html.EditorFor(m => m.CvUrl, new { htmlAttributes = new { @class = "form-control", required = "true" } })
+        @Html.ValidationMessageFor(m => m.CvUrl, "", new { @class = "text-danger" })
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Go back", "Details", "JobApplication", new { id = @Model.Id }, new { @class = "btn btn-primary" })
+
+}
+
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+<script>
+
+    jQuery.validator.setDefaults({
+        success: "valid"
+    });
+
+    $("#edit-form").validate({
+        rules: {
+            EmailAddress: {
+                email: true
+            },
+            PhoneNumber: {
+                digits: true
+            }
+        },
+        messages: {
+            EmailAddress: {
+                required: "Please enter your email address",
+                email: "Please enter valid email address",
+            },
+            PhoneNumber: {
+                required: "Please enter your",
+                digits: "Please enter a valid phone number"
+            },
+            CvUrl: {
+                required: "CV Url is required"
+            }
+        },
+    });
+
+</script>
+
